@@ -13,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     lateinit var sensorManager: SensorManager
-    var isColor: Boolean = false
     lateinit var view: TextView
-    var lastUpdate: Long = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 SensorManager.SENSOR_DELAY_FASTEST
             )
         }
-        lastUpdate = System.currentTimeMillis()
     }
 
     override fun onSensorChanged(event: SensorEvent) {
