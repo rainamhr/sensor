@@ -50,7 +50,7 @@ class LightSensorActivity : AppCompatActivity(), SensorEventListener {
 
             textView.text = "Sensor ${light}\n${brightness(light)}"
             progressBar.setProgressWithAnimation(light)
-            layout.setBackgroundColor(Color.parseColor(Utils.convert(brightness(light))))
+//            layout.setBackgroundColor(Color.parseColor(Utils.convert(brightness(light))))
         }
     }
 

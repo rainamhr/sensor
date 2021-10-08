@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         view.setOnClickListener{
             val intent = Intent(this@MainActivity, LightSensorActivity::class.java)
             startActivity(intent)
-
         }
     }
 
