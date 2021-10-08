@@ -1,14 +1,15 @@
 package com.mobile.sensor
 
+import android.content.Intent
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         view = findViewById(R.id.textView)
         view.setBackgroundColor(Color.RED)
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).also {
@@ -31,6 +33,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 SensorManager.SENSOR_DELAY_FASTEST,
                 SensorManager.SENSOR_DELAY_FASTEST
             )
+        }
+
+        view.setOnClickListener{
+            val intent = Intent(this@MainActivity, LightSensorActivity::class.java)
+            startActivity(intent)
+
         }
     }
 
@@ -50,11 +58,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             rotationX = y * 3f
             rotationY = x * 3f
             rotation = -x
-            translationX = x* -10
+            translationX = x * -10
             translationY = y * 10
         }
 
-        val color = if (y.toInt() == 0 && x.toInt() ==0) Color.GREEN else Color.RED
+        val color = if (y.toInt() == 0 && x.toInt() == 0) Color.GREEN else Color.RED
         view.setBackgroundColor(color)
 
         view.text = "up/down ${y.toInt()}\nleft/right ${x.toInt()}"
@@ -74,5 +82,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        return
     }
 }
