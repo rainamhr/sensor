@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -44,13 +45,21 @@ class LightSensorActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    private val TAG = "LightSensorActivity"
+
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_LIGHT) {
+            mapFun()
             val light = event.values[0]
+
+
+            Log.d(TAG, "onSensorChanged: " + brightness(light))
 
             textView.text = "Sensor ${light}\n${brightness(light)}"
             progressBar.setProgressWithAnimation(light)
-//            layout.setBackgroundColor(Color.parseColor(Utils.convert(brightness(light))))
+
+            Log.d(TAG, "onSensorChanged: " + getData(brightness(light)))
+            layout.setBackgroundColor(Color.parseColor(getData(brightness(light))))
         }
     }
 
@@ -69,5 +78,23 @@ class LightSensorActivity : AppCompatActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
+    }
+
+
+    companion object {
+        var map = HashMap<String, String>()
+
+        fun mapFun() {
+            map["Pitch Black"] = "#000000"
+            map["Dark"] = "#474747"
+            map["Grey"] = "#979797"
+            map["Normal"] = "#EAEAEA"
+            map["Incredibly Bright"] = "#FFFCFC"
+            map["This light will blind you"] = "#FFFFFF"
+        }
+
+        fun getData(str: String): String {
+            return map[str].toString()
+        }
     }
 }

@@ -12,14 +12,13 @@ public class Utils {
         map.put("Normal", "#EAEAEA");
         map.put("Incredibly Bright", "#FFFCFC");
         map.put("This light will blind you", "#FFFFFF");
-
     }
 
     public static String convert(String ch) {
         StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < ch.length(); i++) {
             String c = String.valueOf(ch.charAt(i));
-                buffer.append(c);
+            buffer.append(map.get(c));
         }
         return buffer.toString();
     }
